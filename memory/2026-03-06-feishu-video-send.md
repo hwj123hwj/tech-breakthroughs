@@ -84,6 +84,49 @@ curl -X POST "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=op
 | OpenClaw message + media | 文件（需下载）⚠️ |
 | 飞书 API + msg_type: media | 视频卡片（可直接播放）✅ |
 
+## 进阶：带预览图
+
+飞书视频默认没有预览图，需要手动上传封面图并在发送时指定 `image_key`。
+
+### 完整流程
+
+```bash
+# 1. 截取视频第1秒作为封面图
+ffmpeg -y -i video.mp4 -ss 00:00:01 -vframes 1 cover.jpg
+
+# 2. 上传封面图
+curl -X POST "https://open.feishu.cn/open-apis/im/v1/images" \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "image_type=message" \
+  -F "image=@cover.jpg"
+# 返回：{"data":{"image_key":"img_v3_xxxx"}}
+
+# 3. 发送时带 image_key
+curl -X POST "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=open_id" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "receive_id": "ou_xxxx",
+    "msg_type": "media",
+    "content": "{\"file_key\": \"file_v3_xxx\", \"image_key\": \"img_v3_xxx\"}"
+  }'
+```
+
+### 关于时长（duration）
+
+飞书 API 支持 `duration` 参数（毫秒），但测试发现：
+- API 返回的 duration 始终为 0
+- 飞书会自动从视频文件提取时长
+- 用户反馈：**不点开视频时显示时长为 0，点开后正常**
+
+这可能是飞书客户端的显示问题，目前没有找到通过 API 强制显示时长的方法。
+
+### 注意事项
+
+- `image_key` 必须和 `file_key` 在同一个 token 会话中上传
+- 预览图建议从视频中间截取，避免黑屏
+- 封面图格式支持 jpg/png
+
 ## 后续优化
 
 OpenClaw 飞书插件需要修改，根据文件 MIME 类型自动选择 `file` 或 `media` 消息类型。
