@@ -47,6 +47,7 @@
 
 - [OpenClaw Cron 使用经验](./OpenClaw-Cron-Lessons.md) - 创建 cron 任务的经验教训
 - [PinchTab 浏览器自动化](./PinchTab-Browser-Automation.md) - 高效低成本的浏览器自动化工具
+- [SiliconFlow 模型选择](./SiliconFlow-Models.md) - ASR、Embedding、AI 摘要模型对比
 
 ## 📝 **经验教训**
 
