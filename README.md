@@ -23,6 +23,12 @@
   - 使用 `get_videos_raw` 代替 `get_videos`
   - 动态适配不同 API 返回结构
 
+### 🌐 **PinchTab 浏览器自动化**
+- ✅ **优势**：Token 成本比截图模式便宜 **5-13 倍**
+- ✅ **特性**：多实例并行、Profile 持久化、Dashboard 可视化
+- ✅ **场景**：大量自动化任务、多账号并行、反爬虫要求高的网站
+- 📖 [详细文档](./PinchTab-Browser-Automation.md)
+
 ## 🎯 **项目架构**
 
 ### B站视频智能推荐系统
@@ -36,6 +42,11 @@
 2. **模块开发**：使用 Codex CLI 生成 7 个核心模块
 3. **测试优化**：修复 API 兼容问题，优化请求策略
 4. **Skill 封装**：将项目封装为 OpenClaw Skill，便于重复使用
+
+## 📚 **详细文档**
+
+- [OpenClaw Cron 使用经验](./OpenClaw-Cron-Lessons.md) - 创建 cron 任务的经验教训
+- [PinchTab 浏览器自动化](./PinchTab-Browser-Automation.md) - 高效低成本的浏览器自动化工具
 
 ## 📝 **经验教训**
 
